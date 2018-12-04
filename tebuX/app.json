@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/shopcart/shopcart",
+    "pages/admin/admin",
+    "pages/shoplist/shoplist",
+    "pages/shopinfo/shopinfo",
+    "pages/classify/classify",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#e60012",
+    "navigationBarTitleText": "特步商城",
+    "navigationBarTextStyle": "while"
+  },
+  "tabBar": {
+    "color": "#000",
+    "position": "bottom",
+    "selectedColor": "#e60012",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "主页",
+        "iconPath": "pages/footer/home1.png",
+        "selectedIconPath": "pages/footer/home_on.png"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "text": "分类",
+        "iconPath": "pages/footer/classify1.png",
+        "selectedIconPath": "pages/footer/classify_on.png"
+      },
+      {
+        "pagePath": "pages/shopcart/shopcart",
+        "text": "我的",
+        "iconPath": "pages/footer/shopCart1.png",
+        "selectedIconPath": "pages/footer/shopCart_on.png"
+      },
+      {
+        "pagePath": "pages/admin/admin",
+        "text": "我的",
+        "iconPath": "pages/footer/my1.png",
+        "selectedIconPath": "pages/footer/my_on.png"
+      }
+    ]
+  }
+}

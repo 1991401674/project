@@ -1,0 +1,13 @@
+<import src="../sub/homeSub/homeSub" />
+<template is="search" data="{{sou}}"/>
+<view class="left-class h-100 w-25">
+  <view class="left-items {{active==item.id-1?'active':''}}" wx:for="{{title}}" wx:key="{{item.id}}" data-id="{{index}}" bindtap="active">{{item.title}}</view>
+</view>
+<view class="right-class h-100 w-75">
+  <view class="w-100 shoplist">
+    <view class="shop" wx:for="{{list}}" wx:key="{{item.id}}" data-title="{{item.title}}" bindtap='shop'>
+      <image src="{{item.img}}"></image>
+      <view class="stitle">{{item.title}}</view>
+    </view>
+  </view>
+</view>

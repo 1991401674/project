@@ -1,0 +1,45 @@
+@import "../sub/homeSub/homeSub";
+
+.card .all .info{
+  margin-left: 40rpx;
+  width: 70%;
+  position: relative;
+}
+.card .all .info .title{
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.card .all .info .price{
+  color: #FEAE12;
+  font-weight: bold;
+  margin-top: 30rpx;
+}
+.pt-10{
+  height: 100%;
+  padding: 93rpx 0;
+}
+.footer{
+  position: fixed;
+  top: 30%;
+  right: 30rpx;
+  display: flex;
+  border-top: 1rpx solid #ccc;
+  flex-flow: column;
+  justify-content: space-around;
+  height: 30%;
+}
+.footer>view{
+  opacity: 0.9;
+  background: #eee;
+  display: flex;
+  text-align: center;
+  font-size: 10px;
+  border-radius: 50%;
+  padding: 30rpx;
+}
+.footer>view>image{
+  width: 50rpx;
+  height: 50rpx;
+}

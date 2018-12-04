@@ -1,0 +1,25 @@
+<import src="../sub/homeSub/homeSub" />
+<template is="search" data="{{sou}}"/>
+<view class='pt-10'>
+  <view class="card" wx:for="{{shoplist}}" wx:key="{{item.id}}" data-id='{{index}}' bindtap="getinfo">
+    <view class="all">
+      <image src="{{item.img}}"></image>
+      <view class="info w-75">
+        <view class="title">
+          {{item.title}}
+        </view>
+        <view class="price">
+          ￥{{item.price}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="footer">
+  <view data-url="home" bindtap="tab">
+    <image src='../footer/home_on.png'></image>
+  </view>
+  <view data-url="shopcart" bindtap="tab">
+    <image src="../footer/shopCart_on.png"></image>
+  </view>
+</view>

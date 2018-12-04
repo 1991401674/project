@@ -1,0 +1,48 @@
+page{
+  height: 100%;
+  display: flex;
+}
+@import "../sub/homeSub/homeSub";
+.left-class{
+  background: #f5f5f5;
+}
+.left-class>view:first-child{
+  margin-top: 93rpx;
+}
+.right-class{
+  background: #fff;
+}
+.left-items{
+  padding: 25rpx 0 25rpx 0;
+  border: 1rpx solid #e8e8e8;
+  text-align: center;
+  font-size: 80%;
+}
+.shoplist{
+  margin-top: 103rpx;
+  display: flex;
+  flex-flow: wrap;
+}
+.shop{
+  margin: 15rpx;
+  border: 1rpx solid #e8e8e8;
+  width: 150rpx;
+  height: 150rpx;
+  text-align: center;
+}
+.shop image{
+  width: 100rpx;
+  height: 100rpx;
+  margin: 10rpx;
+}
+.stitle{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: -18rpx;
+  font-size: 60%;
+}
+.active{
+  background: #fff;
+  border-right: none;
+}

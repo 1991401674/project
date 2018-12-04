@@ -1,0 +1,361 @@
+﻿//ajaxpost start
+function ClearErrorMsg() {
+    $("div.msg").each(function () { $(this).html(''); $(this).hide(); });
+}
+function AjaxPost(url, frm, cnfirm, needchecked) {
+    ClearErrorMsg();
+    var doit = true;
+    if (needchecked == true) {
+        if (!IsCheckedOne()) {
+            alert('请至少选择一条记录');
+            doit = false;
+            return;
+        }
+    }
+    if (cnfirm == true) {
+        if (!confirm('你确定要执行该操作？')) {
+            doit = false;
+        }
+    }
+    if (doit) {
+        Ajax(url, frm, 'POST', ShowResult, true);
+    }
+}
+function ShowResult(result) {
+    var msg = eval('(' + result + ')');
+    if (msg.method != undefined) {
+        switch (msg.method) {
+            case "eval":
+                eval(msg.data);
+                break;
+            case "alert":
+                //alert(msg.data);
+                showMsg(msg.data);
+                break;
+            case "goto":
+                window.location.href = msg.data;
+                break;
+            case "send_goto":
+                var data = eval('(' + msg.data + ')');
+                alert(data.message);
+                window.location.href = data.url;
+                break;
+            case "reload":
+                alert(msg.data);
+                location.reload(true);
+                break;
+            case "error":
+                var data = eval('(' + msg.data + ')');
+                var bo = true;
+                for (var o in data) {
+                    $('#e_' + o).html(data[o]).show();
+                }
+                break;
+        }
+    }
+    if($('button'))
+        $('button').attr('disabled', false);
+}
+function AjaxGet(url, func) {
+    Ajax(url, '', 'GET', func, true);
+}
+function AjaxLoad(url, div, func) {
+    Ajax(url, div, 'LOAD', function (data) { $('#' + div).html(data); if (func) { func(data); } }, false);
+}
+function Ajax(url, param, type, func, showloadding) {
+    //if (showloadding) { ShowLoadding(); }
+    if (url.indexOf('?') == -1) {
+        url += "?";
+    }
+    else
+        url += "&";
+    url += "timeStamp=" + new Date().getTime()
+
+    if (type == 'GET' || type == 'LOAD') {
+        $.ajax({ url: url,
+            type: 'GET',
+            cache: false,
+            timeout: 20000,
+            error: function () { if (param != '') { $('#' + param).html('数据加载失败'); } else { alert('数据加载失败，可能是网络连接问题或者服务器错误。'); } },
+            success: func,
+            complete: function () {
+                //if (showloadding) { HideLoadding(); } 
+                 }
+        });
+    } else if (type == 'POST') {
+        $('.submit').each(function () { $(this).attr('title', $(this).html()); $(this).html('请稍候'); $(this).attr('disabled', 'disabled'); });
+        $.ajax({ url: url,
+            type: 'POST',
+            data: $('#' + param).serialize(),
+            cache: false,
+            timeout: 20000,
+            error: function () { alert('数据加载失败，可能是网络连接问题或者服务器错误。'); },
+            success: func,
+            complete: function () {
+                //if (showloadding) { HideLoadding(); } 
+                $('.submit').each(function () { $(this).html($(this).attr('title')); $(this).attr('disabled', false); }); 
+            }
+        });
+    }
+}
+//ajaxpost end
+
+//shopcart start
+function AddShopCart(id, type) {
+    AjaxGet("/ajax/AddShopCart.ashx?id=" + id +"&type="+type,ShowResult);
+    var buycount = $("#scbuycount_" + id).val();
+
+    if (buycount == undefined) buycount = 0;
+    var currentcount = 1;
+    if (buycount > 0)
+        currentcount = parseInt(buycount);
+    AjaxLoad('/ajax/UpdateShopCartNum.ashx?action=add&id=' + id + '&num=' + currentcount, 'GetProm');
+    
+//    if ($('#isjifengou_' + id)) {
+//        if ($('#isjifengou_' + id).attr('checked'))
+//            AjaxLoad('/ajax/AddShopCart2.ashx?id=' + id + '&num=' + currentcount, 'aspnetForm2');
+//    }
+//    $('#gwc_best').load('/ajax/ShopCart.aspx');
+//    if ($('#headshopcountspan')) {
+//        try {
+//            var scvalue = getcookie('Inoherb-ShopCart');
+//            if (scvalue != '')
+//                $('#headshopcountspan').html(scvalue.split(',').length);
+//        } catch (err) { }
+//    }
+}
+
+function AddShopCartNew(id, type) {
+    var buycount = $("#scbuycount_" + id).val();
+    if (buycount == undefined) buycount = 1;
+
+    AjaxPost("/ajax/AddShopCart.ashx?id=" + id + "&num=" + buycount + "&type=" + type);
+}
+
+function updateCartNum(id) {
+    //更新购物车图标的数字
+    var buycount = $("#scbuycount_" + id).val();
+    if (buycount == undefined) buycount = 0;
+    var currentcount = 1;
+    if (buycount > 0)
+        currentcount = parseInt(buycount);
+    if ($('#spanshopcount')) {
+        try {
+            var count = parseInt($('#spanshopcount').html());
+            if (count > 0)
+                count = count;
+            else
+                count = 0;
+            count += currentcount;
+            if (count > 0) {
+                $('#spanshopcount').show();
+                $('#spanshopcount').html(count);
+            } else {
+                $('#spanshopcount').hide();
+                $('#spanshopcount').html("0");
+            }
+        } catch (err) { }
+    }
+}
+
+function AddShopCart2(id) {
+    var buycount = $("#scbuycount_" + id).val();
+    if (buycount == undefined) buycount = 1;
+
+    AjaxPost('/product/GotoBuy.aspx?g=1&p=' + id + '&c=' + buycount);
+    //location.href = '/product/GotoBuy.aspx?g=1&p=' + id + '&c=' + buycount;
+}
+function numberplus(productid) {
+    var num = getPronumber(productid);
+    var lmtnum = parseInt($('#sclimitcount_' + productid).val());//限量
+    if (isNaN(lmtnum) || lmtnum < 0)
+        lmtnum = 0;
+    if (lmtnum > 0 && num >= lmtnum)
+        return;
+    $('#scbuycount_'+productid).val(num + 1);
+}
+function numberminus(productid) {
+    var num = getPronumber(productid);
+    if (num > 1)
+        $('#scbuycount_'+productid).val(num - 1);
+}
+function getPronumber(productid) {
+    var num = parseInt($('#scbuycount_' + productid).val());
+    var lmtnum = parseInt($('#sclimitcount_' + productid).val());
+    if (isNaN(num) || num < 0)
+        num = 0;
+    if (isNaN(lmtnum) || lmtnum < 0)
+        lmtnum = 0;
+    if (lmtnum > 0 && num >= lmtnum)
+        num = 0;
+    return num;
+}
+//shopcart end
+function showMsg(msg) {
+    if ($('#dialog'))
+        $('#dialog').remove();
+    $('body').append("<div id='dialog'></div>");
+    $('#dialog').html('<p>' + msg + '</p>');
+    $("#dialog").dialog({
+        show: {
+            effect: "fade",
+            duration: 600
+            },
+        width: 300,
+        resizable: false,
+        closeOnEscape: false,
+        buttons: { '确定': function () { $(this).dialog('close'); } },
+        open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); $(".ui-dialog-titlebar").hide(); $(".ui-dialog-buttonset").attr("style", "width:100%"); $(".ui-dialog-buttonset button").attr("style", "width:100%"); }
+    });
+}
+function showCartMsg() {
+    if ($('#dialog'))
+        $('#dialog').remove();
+    $('body').append("<div id='dialog'></div>");
+    $('#dialog').html('<div style="display: block;"><div class="modal-inner"><div class="modal-text">购物车添加成功。</div></div><div class="modal-buttons "><a class="modal-button" href="javascript:;" onclick="$(\'#dialog\').dialog(\'close\');">继续购物</a><a class="modal-button modal-button-bold" href="/product/shopcart.aspx">去购物车</a></div></div>');
+    $("#dialog").dialog({
+        show: {
+            effect: "fade",
+            duration: 600
+            },
+dialogClass:"cart",
+        width: 288,
+        modal: true,
+        resizable: false,
+        closeOnEscape: false,
+        buttons: {  },
+        open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); $(".ui-dialog-titlebar").hide(); $(".ui-dialog-buttonset").attr("style", "width:100%"); $(".ui-dialog-buttonset button").attr("style", "width:100%"); }
+    });
+}
+function AddFavorite(sURL, sTitle) {
+    try {
+        if (document.all) {
+            window.external.addFavorite(sURL, sTitle);
+        }
+        else if (window.sidebar) {
+            window.sidebar.addPanel(sTitle, sURL, "");
+        }
+    } catch (e) {
+        alert("加入收藏失败");
+    }
+}
+function NeedLogin() {
+ $(document).ready(function () {
+    $.ajax({ url: "/CheckLogin.aspx",
+        type: 'GET',
+        cache: true,
+        timeout: 20000,
+        error: function () { },
+        success: function (data) {
+            if (data != "1")
+                location.href = "/login.html";
+        },
+        complete: function () { }
+    });
+  });
+}
+//cookie操作
+function getCookie(name){   
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+	if(arr != null) return unescape(arr[2]); return null;
+}
+function addCookie(name, value, Days) {      //添加cookie
+	//var Days = 30; //此 cookie 将被保存 30 天
+	var exp = new Date();    //new Date("December 31, 9998");
+	exp.setTime(exp.getTime() + Days*24*60*60*1000);
+	document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+//querystring
+function getQueryStringByName(name) {
+    var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
+    if (result == null || result.length < 1) {
+        return "";
+    }
+    return result[1];
+}
+
+var goalurl = ''; //用于微信跳转
+function gourl_weixin() {
+    if (goalurl == '')
+        goalurl = 'https://m.xtep.com.cn/';
+    location.href = goalurl;
+}
+
+//判断是否手机浏览器
+var browser = {
+    versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {//移动终端浏览器版本信息
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1, //android终端
+            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            windowsPhone: u.indexOf('Windows Phone') > -1, //是否windows phone
+            nokia: u.indexOf('Nokia') > -1 || u.indexOf('NOKIA') > -1,//是否nokia
+            webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+        };
+    } (),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+//document.writeln("语言版本: " + browser.language);
+//document.writeln(" 是否为移动终端: " + browser.versions.mobile);
+//document.writeln(" ios终端: " + browser.versions.ios);
+//document.writeln(" android终端: " + browser.versions.android);
+//document.writeln(" 是否为iPhone: " + browser.versions.iPhone);
+//document.writeln(" 是否iPad: " + browser.versions.iPad);
+//document.writeln(navigator.userAgent);
+function isMobile() {return true;
+    if (browser.versions.mobile || browser.versions.android || browser.versions.windowsPhone || browser.versions.nokia)
+        return true;
+    return false;
+}
+
+            function isWeiXin() {
+                var ua = window.navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                    return true;
+                } else {
+                    return false;
+                }
+               /* if (ua.indexOf('micromessenger') >= 0) {
+                    return true;
+                } else {
+                    return false;
+                }*/
+            }
+
+function showWuliu(ordernum) {
+    $.ajax({ url: "/order/kuaidiInfo.aspx?orderno=" + ordernum,
+        type: 'GET',
+        cache: true,
+        timeout: 20000,
+        error: function () { },
+        success: function (data) {
+            showMsg(data);
+        },
+        complete: function () { }
+    });
+}
+
+function showWuliu2(ecompany, eno) {
+    $.ajax({ url: "/order/kuaidiInfo.aspx?type=" + ecompany+"&postid="+eno,
+        type: 'GET',
+        cache: true,
+        dataType: 'html',
+        timeout: 20000,
+        error: function () { },
+        success: function (data) {
+            showMsg(data);
+        },
+        complete: function () { }
+    });
+}
+
+function logout() {
+    location.href = "/logout.aspx?lasturl=" + escape(location.href);
+}

@@ -1,0 +1,131 @@
+<import src="../sub/homeSub/homeSub" />
+<view>
+  <template is="swiper" data="{{swiper}}"/>
+  <view class="info">
+    <view class="title">
+      {{info.title}}
+    </view>
+    <view class="price">
+      <view>
+        吊牌价：<text>￥{{info.old}}</text>
+      </view>
+      <view>
+        已售 <text>{{info.shop}}</text> 件
+      </view>
+    </view>
+    <view class="prices">
+      <view>预售价：<text>￥{{info.price}}</text></view>
+      <view>到手价：<text>￥{{info.new}}</text></view>
+    </view>
+    <view class="time">
+      <view>预售开始时间：2018-11-01 00:00</view>
+      <view>尾款支付时间：2018-11-10 23:00 — 2018-11-11 23:59</view>
+    </view>
+    <view class="radio" bindtap='checkedShop'>
+      <view>选择规格：</view>
+      <view>{{checked}}</view>
+      <view class="jt"></view>
+    </view>
+    <view>
+      <view class="shop" wx:if="{{close}}" bindtap="close"></view>
+      <view class="shoplist {{close?'':'shoplistClose'}}">
+        <view>
+          <view class="prop">
+            <image src="{{simg}}" lazy-load></image>
+            <view class="w-50">
+              <view class="close" bindtap="close">×</view>
+              <view>
+                {{info.title}}
+              </view>
+              <view>
+                总计：{{count*info.price}}
+              </view>
+              <view class="w-75">
+                <button bindtap="minu">-</button>
+                <text>{{count}}</text>
+                <button bindtap="add">+</button>
+              </view>
+            </view>
+          </view>
+          <view>
+            <view class="radios">
+              <radio-group bindchange="color">
+                <label wx:for="{{info.color}}" wx:key="{{item.id}}">
+                  <view>
+                    <radio value="{{index}}">{{item}}</radio>
+                  </view>
+                </label>
+              </radio-group>
+              <radio-group bindchange="size">
+                <label wx:for="{{info.size}}" wx:key="{{item.id}}">
+                  <view>  
+                    <radio value="{{index}}">{{item}}</radio>
+                  </view>
+                </label>
+              </radio-group>
+            </view>
+          </view>
+        </view>
+        <button data-c="ok" bindtap="close">确认</button>
+      </view>
+    </view>
+  </view>
+  <view class="inCo">
+    <view class='w-100 {{inCo==0?"ac_color":""}}' data-c="0" bindtap='inCo'>
+      详细
+    </view>
+    <view class='w-100 {{inCo==1?"ac_color":""}}' data-c="1" bindtap='inCo'>
+      评论
+    </view>
+    <view class='w-50 {{inCo==1?"inCoActive":""}}'></view>
+  </view>
+  <view class='infos' wx:if="{{inCo==1}}">
+    <view class="card" wx:for="{{list}}" wx:key="{{item.id}}" data-id='{{index}}'>
+      <view class="all">
+        <image src="{{item.tx}}"></image>
+        <view>
+          <view><text class="bud">第{{index+1}}楼</text><text class="name">{{item.uname}}</text></view>
+          <view class="ctime">{{item.ctime}}</view>
+          <view>{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='infos' wx:if="{{inCo==0}}">
+    <view>
+      <view>
+        <view class='w-25'>产品名称：</view>
+        <view>{{info.title}}</view>
+      </view>
+      <view>
+        <view class='w-25'><text>货</text><text>号：</text></view>
+        <view>{{info.snum}}</view>
+      </view>
+      <view>
+        <view class='w-25'><text>品</text><text>牌：</text></view>
+        <view>特步</view>
+      </view>
+      <view>
+        <view class='w-25'><text>品</text><text>类：</text></view>
+        <view>{{info.type}}</view>
+      </view>
+    </view>
+    <view class="bimg">
+      <image wx:for="{{info.imginfo}}" wx:key="{{item.id}}" mode="widthFix" src="{{item}}" lazy-load></image>
+    </view>
+  </view>
+  <view class="footer w-100">
+    <view class="w-25" data-url='home' bindtap="url">
+      <image src='../footer/home (1).png'></image>
+      主页
+    </view>
+    <view class="w-25" data-url='shoplist' bindtap='url'>
+      <image src='../footer/classify.png'></image>
+      分类
+    </view>
+    <view class="w-50" bindtap="addCart">加 入 购 物 车</view>
+  </view>
+</view>
+<view data-url="shopcart" bindtap="tab" class="cart">
+  <image src="../footer/shopCart_on.png"></image>
+</view>

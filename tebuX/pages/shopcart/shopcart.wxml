@@ -1,0 +1,44 @@
+<view class="del">
+  <icon class="iconfont icon-zuojiantou" data-type='back' bindtap='icon'></icon>
+  <icon class="iconfont icon-gengduotianchong" data-type='more' bindtap='icon'></icon>
+  <icon class="iconfont icon-shanchu" data-type="del" bindtap='icon'></icon>
+</view>
+<image wx:if="{{shop.length==0}}" mode="widthFix" src='http://172.20.10.6:1674/img/shopcart/shopCart_null.png' class="null"></image>
+<view class="shoplists">
+  <checkbox-group bindchange='checked'>
+    <checkbox wx:for="{{shop}}" wx:key="{{item.id}}" value="{{index}}" class="checked?'':'ac-all'" checked='{{all}}' data-id='{{item.cid}}' bindlongtap="shopId">
+      <view class="card">
+        <view class="all">
+          <image src="{{item.img}}"></image>
+          <view class="info w-75">
+            <view class="stitle">
+            {{item.title}}
+            </view>
+            <view class="cs">
+              <view>{{item.color}}</view>
+              <view>{{item.size}}</view>  
+            </view>
+            <view class='sprice'>￥{{item.price}}</view>
+            <view class="count">
+              <button catchtap="minus" data-id='{{item.id}}' class="w-100">-</button>
+              <text class="w-100">{{item.count}}</text>
+              <button catchtap="adds" data-id='{{item.id}}' class="w-100">+</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </checkbox>
+  </checkbox-group>
+</view>
+
+<view class="footer {{shop.length==0?'':'footer-ac'}}">
+  <view bindtap="all" class="{{all && alls?'all-a':''}}">
+    全选
+  </view>
+  <view>
+    ￥{{sum}}
+  </view>
+  <view bindtap="pay">
+    结算
+  </view>
+</view>

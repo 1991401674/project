@@ -1,0 +1,37 @@
+<view>
+  <view class="bg1">
+    <image src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
+    <view class="a1"></view>
+    <view>
+      <view class='w-100'>待付款</view>
+      <view class='w-100'>待发货</view>
+      <view class='w-100'>待收货</view>
+      <view class='w-100'>已完成</view>
+      <view class='w-100'>退款/售后</view>
+    </view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-xinfeng"></icon> 我的订单</view>
+    <view class='jt'></view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-erweima"></icon> 优惠券</view>
+    <view class='jt'></view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-dibiao"></icon> 收货地址</view>
+    <view class='jt'></view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-bangzhu"></icon> 修改密码</view>
+    <view class='jt'></view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-shezhi"></icon> 设置</view>
+    <view class='jt'></view>
+  </view>
+  <view class="list">
+    <view><icon class="iconfont icon-duihuaxinxi"></icon> 团购定制</view>
+    <view class='jt'></view>
+  </view>
+</view>

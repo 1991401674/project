@@ -1,0 +1,14 @@
+<template name="swiper">
+  <view class="swiper">
+    <swiper autoplay interval="3500" indicator-dots>
+      <swiper-item wx:for="{{swiper}}" wx:key="{{item.id}}">
+        <image src="{{item.img_url}}" mode="widthFix" lazy-load></image>
+      </swiper-item>
+    </swiper>
+  </view>
+</template>
+<template name="search">
+  <view class="search">
+    <input type="text" placeholder='{{sou}}'></input>
+  </view>
+</template>

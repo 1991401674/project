@@ -1,0 +1,43 @@
+/* 评论 */
+.nav-tabs li{
+    float: left;
+    width: 50%;
+    border-bottom: #E1E1E1 1px solid;
+}
+.nav-tabs li a{
+    display: block;
+    border-right: #E1E1E1 1px solid;
+}
+.nav-tabs li:last-child a{
+    border-right: none;
+}
+.nav-tabs li.active a{
+    color: #b61d1d;
+}
+
+.comment-list-box{
+	padding: 10px 15px;
+	border-bottom: 8px solid #f7f7f7;
+}
+.comment-user{
+	margin-bottom: .2em;
+}
+.comment-user img{
+	width: 40px;
+	height: 40px;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+    vertical-align: middle;
+}
+.comment-user .com_username{
+	display: inline-block;
+	margin-left: 10px;
+}
+.comment-content .rated_stars{
+	color: #999;
+	font-size: .8em;
+	margin-bottom: .2em;
+}
+.comment-content .rated_stars span{
+	margin-right: .2em;
+}

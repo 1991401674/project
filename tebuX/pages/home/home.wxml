@@ -1,0 +1,28 @@
+<import src="../sub/homeSub/homeSub" />
+<template is="search" data="{{sou}}"/>
+<template is="swiper" data="{{swiper}}" />
+<image src="{{imgList[0]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[1]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[2]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[3]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[9]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[10]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[11]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[12]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[33]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[34]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[35]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[36]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[37]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[38]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[39]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[40]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[41]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[42]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[43]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[48]}}" mode="widthFix" class="w-100" lazy-load></image>
+<image src="{{imgList[49]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[50]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[51]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[52]}}" mode="widthFix" class="w-50" lazy-load></image>
+<image src="{{imgList[53]}}" mode="widthFix" class="w-50" lazy-load></image>
